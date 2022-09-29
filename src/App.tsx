@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import Header from "./components/Header"
 import Main from "./components/Main"
 import { fetchCurrency } from "./redux/slices/currencySlice"
-import axios from "axios"
-import { useDispatch } from "react-redux"
+import { useAppDispatch } from "./redux/store"
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const setItems = async () => {
     dispatch(fetchCurrency())
   }

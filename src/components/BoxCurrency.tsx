@@ -1,10 +1,10 @@
-import * as React from "react"
 import Box from "@mui/material/Box"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import { Container, TextField } from "@mui/material"
+import { BoxCurrencyProps } from "../@types/types"
 
 function BoxCurrency({
   currencies,
@@ -12,7 +12,7 @@ function BoxCurrency({
   currency,
   onAmountChange,
   onCurrencyChange,
-}) {
+}: BoxCurrencyProps) {
   return (
     <Container sx={{ display: "flex" }}>
       <TextField
@@ -21,7 +21,7 @@ function BoxCurrency({
         variant="standard"
         value={amount}
         sx={{ marginRight: 5 }}
-        onChange={(e) => onAmountChange(e.target.value)}
+        onChange={(e) => onAmountChange(+e.target.value)}
       />
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth variant="standard">

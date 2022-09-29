@@ -7,30 +7,35 @@ import {
   setCurrency1,
   setCurrency2,
 } from "../redux/slices/currencySlice"
+import { RootState } from "../redux/store"
 
 function Main() {
   const dispatch = useDispatch()
 
   const { items, amount1, amount2, currency1, currency2 } = useSelector(
-    (state) => state.currency
+    (state: RootState) => state.currency
   )
 
-  function handleAmount1Change(amount1) {
+  const handleAmount1Change = (amount1: number) => {
+    //@ts-ignore
     dispatch(setAmount2((amount1 * items[currency2]) / items[currency1]))
     dispatch(setAmount1(amount1))
   }
 
-  function handleCurrency1Change(currency1) {
+  const handleCurrency1Change = (currency1: string) => {
+    //@ts-ignore
     dispatch(setAmount2((amount1 * items[currency2]) / items[currency1]))
     dispatch(setCurrency1(currency1))
   }
 
-  function handleAmount2Change(amount2) {
+  const handleAmount2Change = (amount2: number) => {
+    //@ts-ignore
     dispatch(setAmount1((amount2 * items[currency1]) / items[currency2]))
     dispatch(setAmount2(amount2))
   }
 
-  function handleCurrency2Change(currency2) {
+  const handleCurrency2Change = (currency2: string) => {
+    //@ts-ignore
     dispatch(setAmount1((amount2 * items[currency1]) / items[currency2]))
     dispatch(setCurrency2(currency2))
   }

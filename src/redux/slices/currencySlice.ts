@@ -1,21 +1,18 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
+import { CurrencySliceState, Responce } from "../../@types/types"
 
 export const fetchCurrency = createAsyncThunk(
   "currency/fetchCurrency",
-  async (_, { rejectWithValue }) => {
-    try {
-      const result = axios.get(
-        "https://api.apilayer.com/fixer/latest?base=USD&apikey=viz1DPXEMRbcz6s4FYkELrg46JeDTvEs"
-      )
-      return result
-    } catch (error) {
-      return rejectWithValue(error.message)
-    }
+  async () => {
+    const result = axios.get<Responce>(
+      "https://api.apilayer.com/fixer/latest?base=USD&apikey=viz1DPXEMRbcz6s4FYkELrg46JeDTvEs"
+    )
+    return result
   }
 )
 
-const initialState = {
+const initialState: CurrencySliceState = {
   items: [],
   status: "loading",
   error: "",
@@ -29,35 +26,38 @@ export const currencySlice = createSlice({
   name: "currency",
   initialState,
   reducers: {
-    setAmount1(state, action) {
+    setAmount1(state, action: PayloadAction<number>) {
       state.amount1 = action.payload
     },
-    setAmount2(state, action) {
+    setAmount2(state, action: PayloadAction<number>) {
       state.amount2 = action.payload
     },
-    setCurrency1(state, action) {
+    setCurrency1(state, action: PayloadAction<string>) {
       state.currency1 = action.payload
     },
-    setCurrency2(state, action) {
+    setCurrency2(state, action: PayloadAction<string>) {
       state.currency2 = action.payload
     },
   },
-  extraReducers: {
-    [fetchCurrency.pending]: (state) => {
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchCurrency.pending, (state) => {
       state.items = []
       state.status = "loading"
       state.error = ""
-    },
-    [fetchCurrency.fulfilled]: (state, action) => {
+    })
+
+    builder.addCase(fetchCurrency.fulfilled, (state, action) => {
       state.items = action.payload.data.rates
       state.status = "success"
       state.error = ""
-    },
-    [fetchCurrency.rejected]: (state, action) => {
+    })
+
+    builder.addCase(fetchCurrency.rejected, (state, action) => {
       state.items = []
       state.status = "error"
       state.error = action.payload
-    },
+    })
   },
 })
 
