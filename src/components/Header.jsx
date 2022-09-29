@@ -3,8 +3,11 @@ import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
+import { useSelector } from "react-redux"
 
-export default function Header({ currencies }) {
+export default function Header() {
+  const { items } = useSelector((state) => state.currency)
+  let currencies = Object.entries(items)
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 5 }}>
       <AppBar position="static">
