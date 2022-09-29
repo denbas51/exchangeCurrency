@@ -1,6 +1,5 @@
 import { Container } from "@mui/material"
 import BoxCurrency from "./BoxCurrency"
-import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import {
   setAmount1,
@@ -10,10 +9,6 @@ import {
 } from "../redux/slices/currencySlice"
 
 function Main() {
-  // const [amount1, setAmount1] = useState(1)
-  // const [amount2, setAmount2] = useState(1)
-  // const [currency1, setCurrency1] = useState("USD")
-  // const [currency2, setCurrency2] = useState("EUR")
   const dispatch = useDispatch()
 
   const { items, amount1, amount2, currency1, currency2 } = useSelector(

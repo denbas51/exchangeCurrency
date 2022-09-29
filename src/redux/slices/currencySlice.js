@@ -41,14 +41,6 @@ export const currencySlice = createSlice({
     setCurrency2(state, action) {
       state.currency2 = action.payload
     },
-
-    // handleAmount1Change(state, action) {
-    //   setAmount2(
-    //     (state.amount1 * state.items[state.currency2]) /
-    //       state.items[state.currency1]
-    //   )
-    //   setAmount1(state.amount1)
-    // },
   },
   extraReducers: {
     [fetchCurrency.pending]: (state) => {
